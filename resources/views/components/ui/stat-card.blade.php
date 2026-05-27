@@ -2,7 +2,7 @@
     'label',
     'value',
     'trend' => null,
-    'badge' => 'Live',
+    'badge' => 'Aktif',
 ])
 
 <x-ui.card class="group bg-gradient-to-b from-slate-900/80 to-slate-900/30 shadow-xl shadow-black/25 transition hover:border-white/20 hover:shadow-2xl">

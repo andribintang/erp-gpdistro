@@ -31,34 +31,34 @@
                     'text-slate-300 hover:bg-white/5 hover:text-white' => !request()->routeIs('admin.dashboard'),
                 ])>
                     <span class="inline-block h-2 w-2 rounded-full bg-cyan-300"></span>
-                    Dashboard
+                    Dasbor
                 </a>
                 <a href="#" class="flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-slate-300 transition hover:bg-white/5 hover:text-white">
                     <span class="inline-block h-2 w-2 rounded-full bg-slate-500"></span>
-                    Inventory
+                    Inventori
                 </a>
                 <a href="#" class="flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-slate-300 transition hover:bg-white/5 hover:text-white">
                     <span class="inline-block h-2 w-2 rounded-full bg-slate-500"></span>
-                    Purchasing
+                    Pembelian
                 </a>
                 <a href="#" class="flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-slate-300 transition hover:bg-white/5 hover:text-white">
                     <span class="inline-block h-2 w-2 rounded-full bg-slate-500"></span>
-                    Production
+                    Produksi
                 </a>
                 <a href="#" class="flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-slate-300 transition hover:bg-white/5 hover:text-white">
                     <span class="inline-block h-2 w-2 rounded-full bg-slate-500"></span>
-                    Finance
+                    Keuangan
                 </a>
                 <a href="#" class="flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-slate-300 transition hover:bg-white/5 hover:text-white">
                     <span class="inline-block h-2 w-2 rounded-full bg-slate-500"></span>
-                    Ecommerce
+                    E-niaga
                 </a>
             </nav>
 
             <div class="mt-auto rounded-2xl border border-white/10 bg-white/5 p-4">
-                <p class="text-xs uppercase tracking-[0.2em] text-slate-400">System Status</p>
-                <p class="mt-2 text-sm font-medium text-white">All services healthy</p>
-                <p class="mt-1 text-xs text-emerald-300">Queue, worker, and API online</p>
+                <p class="text-xs uppercase tracking-[0.2em] text-slate-400">Status Sistem</p>
+                <p class="mt-2 text-sm font-medium text-white">Semua layanan normal</p>
+                <p class="mt-1 text-xs text-emerald-300">Queue, worker, dan API aktif</p>
             </div>
         </aside>
 
@@ -70,17 +70,17 @@
                             ☰
                         </button>
                         <div>
-                            <p class="text-xs uppercase tracking-[0.2em] text-slate-400">Admin Workspace</p>
-                            <h2 class="text-lg font-semibold text-white">{{ $header ?? 'Dashboard' }}</h2>
+                            <p class="text-xs uppercase tracking-[0.2em] text-slate-400">Ruang Kerja Admin</p>
+                            <h2 class="text-lg font-semibold text-white">{{ $header ?? 'Dasbor' }}</h2>
                         </div>
                     </div>
                     <div class="flex items-center gap-3">
                         <button class="hidden rounded-xl border border-white/15 bg-white/5 px-4 py-2 text-sm font-medium text-slate-200 transition hover:bg-white/10 sm:block">
-                            New Task
+                            Tugas Baru
                         </button>
                         <div class="rounded-xl border border-white/15 bg-white/5 px-3 py-2 text-right">
-                            <p class="text-sm font-medium text-white">{{ auth()->user()->name ?? 'Guest' }}</p>
-                            <p class="text-xs text-slate-400">{{ auth()->user()?->getRoleNames()->implode(', ') ?: 'No role' }}</p>
+                            <p class="text-sm font-medium text-white">{{ auth()->user()->name ?? 'Tamu' }}</p>
+                            <p class="text-xs text-slate-400">{{ auth()->user()?->getRoleNames()->implode(', ') ?: 'Tanpa peran' }}</p>
                         </div>
                     </div>
                 </div>
@@ -95,15 +95,15 @@
     <div x-show="mobileMenu" x-transition.opacity class="fixed inset-0 z-30 bg-slate-950/80 p-4 lg:hidden" @click.self="mobileMenu = false">
         <div class="h-full max-w-xs rounded-2xl border border-white/10 bg-slate-900 p-5 shadow-2xl shadow-black/60">
             <div class="mb-6 flex items-center justify-between">
-                <p class="text-sm font-semibold text-white">Navigation</p>
-                <button @click="mobileMenu = false" class="rounded-lg border border-white/10 px-2 py-1 text-xs text-slate-300">Close</button>
+                <p class="text-sm font-semibold text-white">Navigasi</p>
+                <button @click="mobileMenu = false" class="rounded-lg border border-white/10 px-2 py-1 text-xs text-slate-300">Tutup</button>
             </div>
-            <a href="{{ route('admin.dashboard') }}" class="block rounded-xl bg-white/10 px-4 py-3 text-sm font-medium text-white">Dashboard</a>
-            <a href="#" class="mt-2 block rounded-xl px-4 py-3 text-sm text-slate-300">Inventory</a>
-            <a href="#" class="mt-2 block rounded-xl px-4 py-3 text-sm text-slate-300">Purchasing</a>
-            <a href="#" class="mt-2 block rounded-xl px-4 py-3 text-sm text-slate-300">Production</a>
-            <a href="#" class="mt-2 block rounded-xl px-4 py-3 text-sm text-slate-300">Finance</a>
-            <a href="#" class="mt-2 block rounded-xl px-4 py-3 text-sm text-slate-300">Ecommerce</a>
+            <a href="{{ route('admin.dashboard') }}" class="block rounded-xl bg-white/10 px-4 py-3 text-sm font-medium text-white">Dasbor</a>
+            <a href="#" class="mt-2 block rounded-xl px-4 py-3 text-sm text-slate-300">Inventori</a>
+            <a href="#" class="mt-2 block rounded-xl px-4 py-3 text-sm text-slate-300">Pembelian</a>
+            <a href="#" class="mt-2 block rounded-xl px-4 py-3 text-sm text-slate-300">Produksi</a>
+            <a href="#" class="mt-2 block rounded-xl px-4 py-3 text-sm text-slate-300">Keuangan</a>
+            <a href="#" class="mt-2 block rounded-xl px-4 py-3 text-sm text-slate-300">E-niaga</a>
         </div>
     </div>
 </body>

@@ -10,10 +10,10 @@ class DashboardController extends Controller
     public function index(): View
     {
         $stats = [
-            ['label' => 'Revenue (MTD)', 'value' => 'Rp 0', 'trend' => '+0.0%'],
-            ['label' => 'Open Sales Orders', 'value' => '0', 'trend' => '0 pending'],
-            ['label' => 'Low Stock SKUs', 'value' => '0', 'trend' => 'Safe'],
-            ['label' => 'Production Queue', 'value' => '0', 'trend' => 'No backlog'],
+            ['label' => 'Pendapatan (Bulan Berjalan)', 'value' => 'Rp 0', 'trend' => '+0,0%'],
+            ['label' => 'Sales Order Terbuka', 'value' => '0', 'trend' => '0 menunggu'],
+            ['label' => 'SKU Stok Menipis', 'value' => '0', 'trend' => 'Aman'],
+            ['label' => 'Antrian Produksi', 'value' => '0', 'trend' => 'Tidak ada backlog'],
         ];
 
         return view('admin.dashboard.index', compact('stats'));
