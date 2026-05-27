@@ -8,45 +8,102 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="h-full bg-slate-950 text-slate-100 antialiased">
-    <div class="min-h-screen lg:grid lg:grid-cols-[280px_1fr]">
-        <aside class="sticky top-0 hidden h-screen border-r border-white/10 bg-slate-900/60 p-6 backdrop-blur lg:block">
-            <div class="mb-8">
-                <p class="text-xs uppercase tracking-[0.2em] text-rose-400">GPDISTRO Racing</p>
-                <h1 class="mt-2 text-xl font-bold">Enterprise Suite</h1>
+    <div class="fixed inset-0 -z-10">
+        <div class="absolute -left-40 -top-28 h-80 w-80 rounded-full bg-violet-500/20 blur-3xl"></div>
+        <div class="absolute right-0 top-1/3 h-72 w-72 rounded-full bg-cyan-400/20 blur-3xl"></div>
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(148,163,184,0.12),_transparent_60%)]"></div>
+    </div>
+
+    <div class="min-h-screen lg:grid lg:grid-cols-[270px_1fr]">
+        <aside class="hidden border-r border-white/10 bg-slate-900/70 px-5 py-6 backdrop-blur-xl lg:flex lg:min-h-screen lg:flex-col">
+            <div class="mb-8 flex items-center gap-3">
+                <div class="grid h-10 w-10 place-content-center rounded-xl bg-gradient-to-br from-violet-500 to-cyan-400 font-bold text-slate-950">GP</div>
+                <div>
+                    <p class="text-[11px] uppercase tracking-[0.24em] text-violet-200">GPDistro</p>
+                    <p class="text-sm font-semibold text-white">ERP Premium</p>
+                </div>
             </div>
-            <nav class="space-y-2 text-sm">
-                <a href="{{ route('admin.dashboard') }}" class="block rounded-xl px-4 py-3 transition hover:bg-white/10">Dashboard</a>
-                <a href="#" class="block rounded-xl px-4 py-3 text-slate-400 transition hover:bg-white/10 hover:text-white">Inventory</a>
-                <a href="#" class="block rounded-xl px-4 py-3 text-slate-400 transition hover:bg-white/10 hover:text-white">Purchasing</a>
-                <a href="#" class="block rounded-xl px-4 py-3 text-slate-400 transition hover:bg-white/10 hover:text-white">Production</a>
-                <a href="#" class="block rounded-xl px-4 py-3 text-slate-400 transition hover:bg-white/10 hover:text-white">Finance</a>
-                <a href="#" class="block rounded-xl px-4 py-3 text-slate-400 transition hover:bg-white/10 hover:text-white">Ecommerce</a>
+
+            <nav class="space-y-1.5 text-sm">
+                <a href="{{ route('admin.dashboard') }}" @class([
+                    'flex items-center gap-3 rounded-xl px-3.5 py-2.5 transition',
+                    'bg-white/10 text-white shadow-lg shadow-black/20' => request()->routeIs('admin.dashboard'),
+                    'text-slate-300 hover:bg-white/5 hover:text-white' => !request()->routeIs('admin.dashboard'),
+                ])>
+                    <span class="inline-block h-2 w-2 rounded-full bg-cyan-300"></span>
+                    Dashboard
+                </a>
+                <a href="#" class="flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-slate-300 transition hover:bg-white/5 hover:text-white">
+                    <span class="inline-block h-2 w-2 rounded-full bg-slate-500"></span>
+                    Inventory
+                </a>
+                <a href="#" class="flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-slate-300 transition hover:bg-white/5 hover:text-white">
+                    <span class="inline-block h-2 w-2 rounded-full bg-slate-500"></span>
+                    Purchasing
+                </a>
+                <a href="#" class="flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-slate-300 transition hover:bg-white/5 hover:text-white">
+                    <span class="inline-block h-2 w-2 rounded-full bg-slate-500"></span>
+                    Production
+                </a>
+                <a href="#" class="flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-slate-300 transition hover:bg-white/5 hover:text-white">
+                    <span class="inline-block h-2 w-2 rounded-full bg-slate-500"></span>
+                    Finance
+                </a>
+                <a href="#" class="flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-slate-300 transition hover:bg-white/5 hover:text-white">
+                    <span class="inline-block h-2 w-2 rounded-full bg-slate-500"></span>
+                    Ecommerce
+                </a>
             </nav>
+
+            <div class="mt-auto rounded-2xl border border-white/10 bg-white/5 p-4">
+                <p class="text-xs uppercase tracking-[0.2em] text-slate-400">System Status</p>
+                <p class="mt-2 text-sm font-medium text-white">All services healthy</p>
+                <p class="mt-1 text-xs text-emerald-300">Queue, worker, and API online</p>
+            </div>
         </aside>
 
         <div class="flex min-h-screen flex-col">
-            <header class="sticky top-0 z-20 border-b border-white/10 bg-slate-950/80 px-4 py-4 backdrop-blur sm:px-8">
-                <div class="mx-auto flex w-full max-w-7xl items-center justify-between">
-                    <button @click="mobileMenu = !mobileMenu" class="rounded-lg border border-white/10 p-2 lg:hidden">☰</button>
-                    <div>
-                        <p class="text-xs uppercase tracking-[0.2em] text-slate-400">Admin</p>
-                        <h2 class="text-lg font-semibold">{{ $header ?? 'Dashboard' }}</h2>
+            <header class="sticky top-0 z-20 border-b border-white/10 bg-slate-950/75 px-4 py-4 backdrop-blur-xl sm:px-8">
+                <div class="mx-auto flex w-full max-w-7xl items-center justify-between gap-4">
+                    <div class="flex items-center gap-3">
+                        <button @click="mobileMenu = true" class="grid h-10 w-10 place-content-center rounded-xl border border-white/15 bg-white/5 text-slate-200 lg:hidden">
+                            ☰
+                        </button>
+                        <div>
+                            <p class="text-xs uppercase tracking-[0.2em] text-slate-400">Admin Workspace</p>
+                            <h2 class="text-lg font-semibold text-white">{{ $header ?? 'Dashboard' }}</h2>
+                        </div>
                     </div>
-                    <div class="text-right">
-                        <p class="text-sm font-medium">{{ auth()->user()->name ?? 'Guest' }}</p>
-                        <p class="text-xs text-slate-400">{{ auth()->user()?->getRoleNames()->implode(', ') }}</p>
+                    <div class="flex items-center gap-3">
+                        <button class="hidden rounded-xl border border-white/15 bg-white/5 px-4 py-2 text-sm font-medium text-slate-200 transition hover:bg-white/10 sm:block">
+                            New Task
+                        </button>
+                        <div class="rounded-xl border border-white/15 bg-white/5 px-3 py-2 text-right">
+                            <p class="text-sm font-medium text-white">{{ auth()->user()->name ?? 'Guest' }}</p>
+                            <p class="text-xs text-slate-400">{{ auth()->user()?->getRoleNames()->implode(', ') ?: 'No role' }}</p>
+                        </div>
                     </div>
                 </div>
             </header>
+
             <main class="mx-auto w-full max-w-7xl flex-1 px-4 py-8 sm:px-8">
                 {{ $slot }}
             </main>
         </div>
     </div>
 
-    <div x-show="mobileMenu" x-transition class="fixed inset-0 z-30 bg-black/70 p-6 lg:hidden">
-        <div class="rounded-2xl border border-white/10 bg-slate-900 p-4">
-            <a href="{{ route('admin.dashboard') }}" class="block rounded-lg px-4 py-3 hover:bg-white/10">Dashboard</a>
+    <div x-show="mobileMenu" x-transition.opacity class="fixed inset-0 z-30 bg-slate-950/80 p-4 lg:hidden" @click.self="mobileMenu = false">
+        <div class="h-full max-w-xs rounded-2xl border border-white/10 bg-slate-900 p-5 shadow-2xl shadow-black/60">
+            <div class="mb-6 flex items-center justify-between">
+                <p class="text-sm font-semibold text-white">Navigation</p>
+                <button @click="mobileMenu = false" class="rounded-lg border border-white/10 px-2 py-1 text-xs text-slate-300">Close</button>
+            </div>
+            <a href="{{ route('admin.dashboard') }}" class="block rounded-xl bg-white/10 px-4 py-3 text-sm font-medium text-white">Dashboard</a>
+            <a href="#" class="mt-2 block rounded-xl px-4 py-3 text-sm text-slate-300">Inventory</a>
+            <a href="#" class="mt-2 block rounded-xl px-4 py-3 text-sm text-slate-300">Purchasing</a>
+            <a href="#" class="mt-2 block rounded-xl px-4 py-3 text-sm text-slate-300">Production</a>
+            <a href="#" class="mt-2 block rounded-xl px-4 py-3 text-sm text-slate-300">Finance</a>
+            <a href="#" class="mt-2 block rounded-xl px-4 py-3 text-sm text-slate-300">Ecommerce</a>
         </div>
     </div>
 </body>
