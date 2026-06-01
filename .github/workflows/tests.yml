@@ -3,7 +3,7 @@ name: Tests
 on:
   push:
     branches:
-      - master
+      - main
       - '*.x'
   pull_request:
   schedule:
@@ -36,6 +36,18 @@ jobs:
 
       - name: Install Composer dependencies
         run: composer install --prefer-dist --no-interaction --no-progress
+
+      - name: Validate production Composer dependencies
+        run: composer install --no-dev --dry-run --no-interaction
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Build frontend assets
+        run: npm ci && npm run build
 
       - name: Copy environment file
         run: cp .env.example .env

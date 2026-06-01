@@ -1,59 +1,64 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# GPDISTRO ERP & E-Commerce
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+ERP dan e-commerce untuk operasional GPDISTRO Racing Indonesia.
 
-## About Laravel
+## Menjalankan Di Lokal
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Prasyarat:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- Folder proyek berada di `D:\xampp\htdocs\erp-gpdistro`
+- PHP XAMPP tersedia di `D:\xampp\php\php.exe`
+- Node.js dan `npm` sudah terpasang
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Langkah tercepat:
 
-## Learning Laravel
+1. Klik dua kali `local-setup.bat`.
+2. Setelah selesai, klik dua kali `local-start.bat`.
+3. Buka `http://127.0.0.1:8000`.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+Login demo lokal:
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+```text
+Email: admin@gpdistro.test
+Password: change-me-now
+```
 
-## Laravel Sponsors
+Server lokal memakai SQLite, jadi Apache dan MySQL XAMPP tidak wajib
+dijalankan. Data demo aman dijalankan berulang kali dan tidak akan mereset
+perubahan stok yang sudah dibuat.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## Modul Aktif
 
-### Premium Partners
+- Login staf dan role admin
+- Dashboard ERP
+- Master gudang
+- Master produk dan saldo awal
+- Inventori dan ledger mutasi stok
+- Penyesuaian stok
+- Supplier
+- Purchase order
+- Approval purchase order oleh owner
+- Penerimaan parsial purchase order ke inventori
+- Goods receipt dan ledger mutasi stok
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+## Perintah Manual
 
-## Contributing
+Gunakan PHP XAMPP bila `php` belum tersedia pada PATH Windows:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```powershell
+D:\xampp\php\php.exe artisan migrate --force
+D:\xampp\php\php.exe artisan db:seed --force
+npm.cmd run build
+D:\xampp\php\php.exe artisan serve --host=127.0.0.1 --port=8000
+```
 
-## Code of Conduct
+Test:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```powershell
+D:\xampp\php\php.exe artisan test
+```
 
-## Security Vulnerabilities
+## Dokumentasi
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+- Audit dan roadmap: `PROJECT_CONTINUATION_PLAN.md`
+- Railway: `RAILWAY_DEPLOYMENT.md`
