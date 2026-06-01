@@ -26,6 +26,6 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@example.com',
         ]);
 
-        $user->assignRole('Manager');
+        $user->syncRoles(['Owner']);
     }
 }

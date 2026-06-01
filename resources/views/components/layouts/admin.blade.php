@@ -33,32 +33,40 @@
                     <span class="inline-block h-2 w-2 rounded-full bg-cyan-300"></span>
                     Dasbor
                 </a>
-                <a href="#" class="flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-slate-300 transition hover:bg-white/5 hover:text-white">
-                    <span class="inline-block h-2 w-2 rounded-full bg-slate-500"></span>
+                <a href="{{ route('admin.inventory.index') }}" class="flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-slate-300 transition hover:bg-white/5 hover:text-white">
+                    <span class="inline-block h-2 w-2 rounded-full {{ request()->routeIs('admin.inventory.*') ? 'bg-cyan-300' : 'bg-slate-500' }}"></span>
                     Inventori
                 </a>
-                <a href="#" class="flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-slate-300 transition hover:bg-white/5 hover:text-white">
-                    <span class="inline-block h-2 w-2 rounded-full bg-slate-500"></span>
+                <a href="{{ route('admin.products.index') }}" class="flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-slate-300 transition hover:bg-white/5 hover:text-white">
+                    <span class="inline-block h-2 w-2 rounded-full {{ request()->routeIs('admin.products.*') ? 'bg-cyan-300' : 'bg-slate-500' }}"></span>
+                    Produk
+                </a>
+                <a href="{{ route('admin.warehouses.index') }}" class="flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-slate-300 transition hover:bg-white/5 hover:text-white">
+                    <span class="inline-block h-2 w-2 rounded-full {{ request()->routeIs('admin.warehouses.*') ? 'bg-cyan-300' : 'bg-slate-500' }}"></span>
+                    Gudang
+                </a>
+                <a href="{{ route('admin.purchasing.index') }}" class="flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-slate-300 transition hover:bg-white/5 hover:text-white">
+                    <span class="inline-block h-2 w-2 rounded-full {{ request()->routeIs('admin.purchasing.*') ? 'bg-cyan-300' : 'bg-slate-500' }}"></span>
                     Pembelian
                 </a>
-                <a href="#" class="flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-slate-300 transition hover:bg-white/5 hover:text-white">
+                <span class="flex cursor-not-allowed items-center gap-3 rounded-xl px-3.5 py-2.5 text-slate-500">
                     <span class="inline-block h-2 w-2 rounded-full bg-slate-500"></span>
-                    Produksi
-                </a>
-                <a href="#" class="flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-slate-300 transition hover:bg-white/5 hover:text-white">
+                    Produksi <small class="ml-auto text-[10px] uppercase">Segera</small>
+                </span>
+                <span class="flex cursor-not-allowed items-center gap-3 rounded-xl px-3.5 py-2.5 text-slate-500">
                     <span class="inline-block h-2 w-2 rounded-full bg-slate-500"></span>
-                    Keuangan
-                </a>
-                <a href="#" class="flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-slate-300 transition hover:bg-white/5 hover:text-white">
+                    Keuangan <small class="ml-auto text-[10px] uppercase">Segera</small>
+                </span>
+                <span class="flex cursor-not-allowed items-center gap-3 rounded-xl px-3.5 py-2.5 text-slate-500">
                     <span class="inline-block h-2 w-2 rounded-full bg-slate-500"></span>
-                    E-niaga
-                </a>
+                    E-niaga <small class="ml-auto text-[10px] uppercase">Segera</small>
+                </span>
             </nav>
 
             <div class="mt-auto rounded-2xl border border-white/10 bg-white/5 p-4">
                 <p class="text-xs uppercase tracking-[0.2em] text-slate-400">Status Sistem</p>
-                <p class="mt-2 text-sm font-medium text-white">Semua layanan normal</p>
-                <p class="mt-1 text-xs text-emerald-300">Queue, worker, dan API aktif</p>
+                <p class="mt-2 text-sm font-medium text-white">Mode lokal aktif</p>
+                <p class="mt-1 text-xs text-amber-300">SQLite dan server Laravel</p>
             </div>
         </aside>
 
@@ -75,9 +83,6 @@
                         </div>
                     </div>
                     <div class="flex items-center gap-3">
-                        <button class="hidden rounded-xl border border-white/15 bg-white/5 px-4 py-2 text-sm font-medium text-slate-200 transition hover:bg-white/10 sm:block">
-                            Tugas Baru
-                        </button>
                         <div class="rounded-xl border border-white/15 bg-white/5 px-3 py-2 text-right">
                             <p class="text-sm font-medium text-white">{{ auth()->user()->name ?? 'Tamu' }}</p>
                             <p class="text-xs text-slate-400">{{ auth()->user()?->getRoleNames()->implode(', ') ?: 'Tanpa peran' }}</p>
@@ -99,11 +104,13 @@
                 <button @click="mobileMenu = false" class="rounded-lg border border-white/10 px-2 py-1 text-xs text-slate-300">Tutup</button>
             </div>
             <a href="{{ route('admin.dashboard') }}" class="block rounded-xl bg-white/10 px-4 py-3 text-sm font-medium text-white">Dasbor</a>
-            <a href="#" class="mt-2 block rounded-xl px-4 py-3 text-sm text-slate-300">Inventori</a>
-            <a href="#" class="mt-2 block rounded-xl px-4 py-3 text-sm text-slate-300">Pembelian</a>
-            <a href="#" class="mt-2 block rounded-xl px-4 py-3 text-sm text-slate-300">Produksi</a>
-            <a href="#" class="mt-2 block rounded-xl px-4 py-3 text-sm text-slate-300">Keuangan</a>
-            <a href="#" class="mt-2 block rounded-xl px-4 py-3 text-sm text-slate-300">E-niaga</a>
+            <a href="{{ route('admin.inventory.index') }}" class="mt-2 block rounded-xl px-4 py-3 text-sm text-slate-300">Inventori</a>
+            <a href="{{ route('admin.products.index') }}" class="mt-2 block rounded-xl px-4 py-3 text-sm text-slate-300">Produk</a>
+            <a href="{{ route('admin.warehouses.index') }}" class="mt-2 block rounded-xl px-4 py-3 text-sm text-slate-300">Gudang</a>
+            <a href="{{ route('admin.purchasing.index') }}" class="mt-2 block rounded-xl px-4 py-3 text-sm text-slate-300">Pembelian</a>
+            <span class="mt-2 block rounded-xl px-4 py-3 text-sm text-slate-500">Produksi - segera</span>
+            <span class="mt-2 block rounded-xl px-4 py-3 text-sm text-slate-500">Keuangan - segera</span>
+            <span class="mt-2 block rounded-xl px-4 py-3 text-sm text-slate-500">E-niaga - segera</span>
         </div>
     </div>
 </body>
