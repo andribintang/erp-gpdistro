@@ -11,6 +11,9 @@
 <x-layouts.admin :title="'Pembelian'" :header="'Pembelian & Supplier'">
     <div
         x-data="{
+            poLines: [{ product_id: '', qty: 1, unit_price: '' }],
+            addPoLine() { this.poLines.push({ product_id: '', qty: 1, unit_price: '' }); },
+            removePoLine(i) { if (this.poLines.length > 1) this.poLines.splice(i, 1); },
             supplierMode: 'create',
             supplier: { id: null, name: '', email: '', phone: '', address: '' },
             openSupplierCreate() {
@@ -174,7 +177,7 @@
             </form>
         </x-ui.modal>
 
-        <x-ui.modal name="po-form" title="Buat Purchase Order" subtitle="Versi awal: satu item per PO." maxWidth="xl">
+        <x-ui.modal name="po-form" title="Buat Purchase Order" subtitle="Multi-item purchase order." maxWidth="xl">
             <form method="POST" action="{{ route('admin.purchasing.store') }}" class="space-y-4">
                 @csrf
                 @if ($errors->any() && session('open_modal') === 'po-form')
@@ -199,24 +202,24 @@
                         <input name="expected_date" type="date" value="{{ old('expected_date') }}" class="erp-field w-full rounded-xl border border-white/10 bg-slate-950/80 px-3.5 py-2.5 text-sm text-white">
                     </div>
                 </div>
-                <div>
-                    <label class="mb-1.5 block text-xs uppercase tracking-wider text-slate-400">Produk</label>
-                    <select name="items[0][product_id]" required class="erp-field w-full rounded-xl border border-white/10 bg-slate-950/80 px-3.5 py-2.5 text-sm text-white">
-                        <option value="">Pilih produk</option>
-                        @foreach ($products as $product)
-                            <option value="{{ $product->id }}">{{ $product->sku }} — {{ $product->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="grid gap-4 sm:grid-cols-2">
-                    <div>
-                        <label class="mb-1.5 block text-xs uppercase tracking-wider text-slate-400">Qty</label>
-                        <input name="items[0][qty]" type="number" min="1" value="{{ old('items.0.qty', 1) }}" required class="erp-field w-full rounded-xl border border-white/10 bg-slate-950/80 px-3.5 py-2.5 text-sm text-white">
+                <div class="space-y-3 rounded-xl border border-white/10 bg-white/5 p-4">
+                    <div class="flex justify-between">
+                        <p class="text-xs uppercase text-slate-400">Item PO</p>
+                        <button type="button" @click="addPoLine()" class="text-xs text-cyan-300">+ Baris</button>
                     </div>
-                    <div>
-                        <label class="mb-1.5 block text-xs uppercase tracking-wider text-slate-400">Harga satuan</label>
-                        <input name="items[0][unit_price]" type="number" min="0" value="{{ old('items.0.unit_price') }}" required class="erp-field w-full rounded-xl border border-white/10 bg-slate-950/80 px-3.5 py-2.5 text-sm text-white">
-                    </div>
+                    <template x-for="(line, index) in poLines" :key="index">
+                        <div class="grid gap-2 sm:grid-cols-12">
+                            <select :name="`items[${index}][product_id]`" x-model="line.product_id" required class="erp-field sm:col-span-5 rounded-lg border border-white/10 bg-slate-950 px-2 py-2 text-sm text-white">
+                                <option value="">Produk</option>
+                                @foreach ($products as $product)
+                                    <option value="{{ $product->id }}">{{ $product->sku }} — {{ $product->name }}</option>
+                                @endforeach
+                            </select>
+                            <input :name="`items[${index}][qty]`" type="number" min="1" x-model="line.qty" required class="erp-field sm:col-span-2 rounded-lg border border-white/10 bg-slate-950 px-2 py-2 text-sm text-white">
+                            <input :name="`items[${index}][unit_price]`" type="number" min="0" x-model="line.unit_price" required placeholder="Harga" class="erp-field sm:col-span-4 rounded-lg border border-white/10 bg-slate-950 px-2 py-2 text-sm text-white">
+                            <button type="button" @click="removePoLine(index)" class="text-rose-300 sm:col-span-1" x-show="poLines.length > 1">×</button>
+                        </div>
+                    </template>
                 </div>
                 <div>
                     <label class="mb-1.5 block text-xs uppercase tracking-wider text-slate-400">Catatan</label>

@@ -49,6 +49,10 @@
                     <span class="inline-block h-2 w-2 rounded-full {{ request()->routeIs('admin.purchasing.*') ? 'bg-cyan-300' : 'bg-slate-500' }}"></span>
                     Pembelian
                 </a>
+                <a href="{{ route('admin.orders.index') }}" class="flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-slate-300 transition hover:bg-white/5 hover:text-white">
+                    <span class="inline-block h-2 w-2 rounded-full {{ request()->routeIs('admin.orders.*') ? 'bg-cyan-300' : 'bg-slate-500' }}"></span>
+                    Penjualan
+                </a>
                 <span class="flex cursor-not-allowed items-center gap-3 rounded-xl px-3.5 py-2.5 text-slate-500">
                     <span class="inline-block h-2 w-2 rounded-full bg-slate-500"></span>
                     Produksi <small class="ml-auto text-[10px] uppercase">Segera</small>
@@ -108,6 +112,7 @@
             <a href="{{ route('admin.products.index') }}" class="mt-2 block rounded-xl px-4 py-3 text-sm text-slate-300">Produk</a>
             <a href="{{ route('admin.warehouses.index') }}" class="mt-2 block rounded-xl px-4 py-3 text-sm text-slate-300">Gudang</a>
             <a href="{{ route('admin.purchasing.index') }}" class="mt-2 block rounded-xl px-4 py-3 text-sm text-slate-300">Pembelian</a>
+            <a href="{{ route('admin.orders.index') }}" class="mt-2 block rounded-xl px-4 py-3 text-sm text-slate-300">Penjualan</a>
             <span class="mt-2 block rounded-xl px-4 py-3 text-sm text-slate-500">Produksi - segera</span>
             <span class="mt-2 block rounded-xl px-4 py-3 text-sm text-slate-500">Keuangan - segera</span>
             <span class="mt-2 block rounded-xl px-4 py-3 text-sm text-slate-500">E-niaga - segera</span>

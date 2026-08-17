@@ -19,6 +19,8 @@ class StoreProductRequest extends AdminFormRequest
         return [
             'sku' => ['required', 'string', 'max:80', Rule::unique('products', 'sku')],
             'name' => ['required', 'string', 'max:255'],
+            'brand_id' => ['nullable', Rule::exists('brands', 'id')],
+            'category_id' => ['nullable', Rule::exists('categories', 'id')],
             'product_type' => ['required', Rule::in(['apparel', 'spare_part', 'custom_service'])],
             'price' => ['required', 'numeric', 'min:0'],
             'warehouse_id' => ['required', Rule::exists('warehouses', 'id')->where('is_active', true)],

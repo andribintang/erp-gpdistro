@@ -25,6 +25,8 @@ class UpdateProductRequest extends AdminFormRequest
         return [
             'sku' => ['required', 'string', 'max:80', Rule::unique('products', 'sku')->ignore($product->id)],
             'name' => ['required', 'string', 'max:255'],
+            'brand_id' => ['nullable', Rule::exists('brands', 'id')],
+            'category_id' => ['nullable', Rule::exists('categories', 'id')],
             'product_type' => ['required', Rule::in(['apparel', 'spare_part', 'custom_service'])],
             'price' => ['required', 'numeric', 'min:0'],
             'is_active' => ['required', 'boolean'],

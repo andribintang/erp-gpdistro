@@ -2,12 +2,12 @@
 
 namespace App\Repositories\Contracts;
 
-use App\Models\Product;
+use App\Models\Order;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
-interface ProductRepository
+interface OrderRepository
 {
     public function paginate(array $filters = [], int $perPage = 15): LengthAwarePaginator;
 
-    public function create(array $data): Product;
+    public function create(array $data): Order;
 }

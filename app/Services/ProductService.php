@@ -21,6 +21,8 @@ class ProductService
             $minimumStock = $data['minimum_stock'];
 
             unset($data['warehouse_id'], $data['initial_stock'], $data['minimum_stock']);
+            $data['brand_id'] = ! empty($data['brand_id'] ?? null) ? $data['brand_id'] : null;
+            $data['category_id'] = ! empty($data['category_id'] ?? null) ? $data['category_id'] : null;
             $data['slug'] = Str::slug($data['name'].'-'.$data['sku']);
 
             $product = $this->products->create($data);
@@ -50,6 +52,8 @@ class ProductService
 
     public function update(Product $product, array $data): Product
     {
+        $data['brand_id'] = ! empty($data['brand_id'] ?? null) ? $data['brand_id'] : null;
+        $data['category_id'] = ! empty($data['category_id'] ?? null) ? $data['category_id'] : null;
         $data['slug'] = Str::slug($data['name'].'-'.$data['sku']);
         $product->update($data);
 

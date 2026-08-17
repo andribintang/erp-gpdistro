@@ -10,7 +10,7 @@
     <div
         x-data="{
             mode: 'create',
-            item: { id: null, sku: '', name: '', product_type: 'apparel', price: 0, is_active: true, warehouse_id: '', initial_stock: 0, minimum_stock: 0 },
+            item: { id: null, sku: '', name: '', brand_id: '', category_id: '', product_type: 'apparel', price: 0, is_active: true, warehouse_id: '', initial_stock: 0, minimum_stock: 0 },
             openCreate() {
                 this.mode = 'create';
                 this.item = { id: null, sku: '', name: '', product_type: 'apparel', price: 0, is_active: true, warehouse_id: '', initial_stock: 0, minimum_stock: 0 };
@@ -48,13 +48,37 @@
             <x-ui.alert type="error" class="mb-5">{{ $errors->first() }}</x-ui.alert>
         @endif
 
+        <x-ui.card padding="p-4" class="mb-5">
+            <form method="GET" class="grid gap-3 md:grid-cols-2 xl:grid-cols-6">
+                <input name="search" value="{{ request('search') }}" placeholder="Cari SKU / nama" class="erp-field rounded-xl border border-white/10 bg-slate-950 px-3 py-2 text-sm text-white xl:col-span-2">
+                <select name="product_type" class="erp-field rounded-xl border border-white/10 bg-slate-950 px-3 py-2 text-sm text-white">
+                    <option value="">Semua tipe</option>
+                    @foreach ($productTypes as $value => $label)
+                        <option value="{{ $value }}" @selected(request('product_type') === $value)>{{ $label }}</option>
+                    @endforeach
+                </select>
+                <select name="brand_id" class="erp-field rounded-xl border border-white/10 bg-slate-950 px-3 py-2 text-sm text-white">
+                    <option value="">Semua brand</option>
+                    @foreach ($brands as $brand)
+                        <option value="{{ $brand->id }}" @selected(request('brand_id') == $brand->id)>{{ $brand->name }}</option>
+                    @endforeach
+                </select>
+                <select name="category_id" class="erp-field rounded-xl border border-white/10 bg-slate-950 px-3 py-2 text-sm text-white">
+                    <option value="">Semua kategori</option>
+                    @foreach ($categories as $category)
+                        <option value="{{ $category->id }}" @selected(request('category_id') == $category->id)>{{ $category->name }}</option>
+                    @endforeach
+                </select>
+                <select name="is_active" class="erp-field rounded-xl border border-white/10 bg-slate-950 px-3 py-2 text-sm text-white">
+                    <option value="">Semua status</option>
+                    <option value="1" @selected(request('is_active') === '1')>Aktif</option>
+                    <option value="0" @selected(request('is_active') === '0')>Nonaktif</option>
+                </select>
+                <x-ui.button type="submit" variant="secondary">Filter</x-ui.button>
+            </form>
+        </x-ui.card>
+
         <x-ui.card padding="p-0" class="overflow-hidden">
-            <div class="border-b border-white/10 p-4">
-                <form method="GET" class="flex flex-col gap-2 sm:flex-row">
-                    <input name="search" value="{{ request('search') }}" placeholder="Cari SKU atau nama produk..." class="erp-field w-full rounded-xl border border-white/10 bg-slate-950/80 px-3.5 py-2.5 text-sm text-white placeholder:text-slate-500 sm:max-w-md">
-                    <x-ui.button type="submit" variant="secondary">Cari</x-ui.button>
-                </form>
-            </div>
 
             <div class="overflow-x-auto">
                 <table class="w-full min-w-[720px] text-left text-sm">
@@ -62,6 +86,7 @@
                         <tr>
                             <th class="px-5 py-3">SKU</th>
                             <th class="px-5 py-3">Nama</th>
+                            <th class="px-5 py-3">Brand</th>
                             <th class="px-5 py-3">Tipe</th>
                             <th class="px-5 py-3">Harga</th>
                             <th class="px-5 py-3">Stok</th>
@@ -74,6 +99,7 @@
                             <tr class="hover:bg-white/[0.02]">
                                 <td class="px-5 py-4 font-mono text-cyan-300">{{ $product->sku }}</td>
                                 <td class="px-5 py-4 font-medium text-white">{{ $product->name }}</td>
+                                <td class="px-5 py-4 text-slate-400">{{ $product->brand?->name ?? '—' }}</td>
                                 <td class="px-5 py-4 text-slate-400">{{ $productTypes[$product->product_type] ?? $product->product_type }}</td>
                                 <td class="px-5 py-4 text-white">Rp {{ number_format($product->price, 0, ',', '.') }}</td>
                                 <td class="px-5 py-4 text-slate-300">{{ (int) ($product->total_stock ?? 0) }}</td>
@@ -89,6 +115,8 @@
                                                 'id' => $product->id,
                                                 'sku' => $product->sku,
                                                 'name' => $product->name,
+                                                'brand_id' => $product->brand_id,
+                                                'category_id' => $product->category_id,
                                                 'product_type' => $product->product_type,
                                                 'price' => (float) $product->price,
                                                 'is_active' => $product->is_active,
@@ -106,7 +134,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="7" class="px-5 py-12 text-center text-slate-400">Belum ada produk.</td>
+                                <td colspan="8" class="px-5 py-12 text-center text-slate-400">Belum ada produk.</td>
                             </tr>
                         @endforelse
                     </tbody>
@@ -132,6 +160,27 @@
                     <div>
                         <label class="mb-1.5 block text-xs font-medium uppercase tracking-wider text-slate-400">Nama Produk</label>
                         <input name="name" x-model="item.name" required class="erp-field w-full rounded-xl border border-white/10 bg-slate-950/80 px-3.5 py-2.5 text-sm text-white">
+                    </div>
+                </div>
+
+                <div class="grid gap-4 sm:grid-cols-2">
+                    <div>
+                        <label class="mb-1.5 block text-xs uppercase text-slate-400">Brand</label>
+                        <select name="brand_id" x-model="item.brand_id" class="erp-field w-full rounded-xl border border-white/10 bg-slate-950 px-3 py-2 text-sm text-white">
+                            <option value="">—</option>
+                            @foreach ($brands as $brand)
+                                <option value="{{ $brand->id }}">{{ $brand->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div>
+                        <label class="mb-1.5 block text-xs uppercase text-slate-400">Kategori</label>
+                        <select name="category_id" x-model="item.category_id" class="erp-field w-full rounded-xl border border-white/10 bg-slate-950 px-3 py-2 text-sm text-white">
+                            <option value="">—</option>
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
 

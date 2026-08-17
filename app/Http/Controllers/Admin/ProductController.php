@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreProductRequest;
 use App\Http\Requests\Admin\UpdateProductRequest;
+use App\Models\Brand;
+use App\Models\Category;
 use App\Models\Product;
 use App\Models\Warehouse;
 use App\Repositories\Contracts\ProductRepository;
@@ -26,8 +28,12 @@ class ProductController extends Controller
         $this->authorize('viewAny', Product::class);
 
         return view('admin.products.index', [
-            'products' => $this->products->paginate($request->string('search')->toString()),
+            'products' => $this->products->paginate($request->only([
+                'search', 'product_type', 'brand_id', 'category_id', 'is_active',
+            ])),
             'warehouses' => Warehouse::query()->where('is_active', true)->orderBy('name')->get(),
+            'brands' => Brand::query()->orderBy('name')->get(),
+            'categories' => Category::query()->orderBy('name')->get(),
         ]);
     }
 
